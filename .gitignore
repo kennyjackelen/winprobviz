@@ -1,0 +1,13 @@
+node_modules
+
+# ignore the database contents
+db/*
+
+# ignore webpack output
+app/dist
+
+# ignore compiled typescript output
+interfaces/*.js
+app/src/**/*.js
+lib/*.js
+index.js

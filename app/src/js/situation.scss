@@ -1,0 +1,11 @@
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controlGroup {
+  @extend .section;
+  padding: 1em;
+  margin: 1em;
+}
