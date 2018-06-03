@@ -3,6 +3,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import { Component } from './react-wrapper';
 import { getJSON } from './utilities';
 import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
 import { Game } from './game';
 import { IScheduleGame, IMuiTheme } from '../../../interfaces';
 
@@ -32,6 +33,7 @@ class InnerGameList extends Component<IGameListProps, {}> {
             selected={this.props.selectedGamePk === game.gamePk}
             onClick={() => { this.props.onGameSelected( game ); }}
           />
+          <Divider />
         </React.Fragment>,
         )
       }
