@@ -18,7 +18,7 @@ export default class Cache<K, T extends {}> {
     if ( !entry ) {
       return undefined;
     }
-    if ( entry.instant.valueOf() - ( new Date() ).valueOf() > this.TTL ) {
+    if ( ( new Date() ).valueOf() - entry.instant.valueOf() > this.TTL ) {
       // too old, throw it out
       this.entries.delete( key );
       return undefined;
@@ -27,9 +27,10 @@ export default class Cache<K, T extends {}> {
   }
 
   public set( key: K, value: T ) {
-    let entry: ICacheEntry<T>;
-    entry.value = value;
-    entry.instant = new Date();
+    let entry: ICacheEntry<T> = {
+      instant: new Date(),
+      value: value,
+    };
     this.entries.set( key, entry );
   }
 }

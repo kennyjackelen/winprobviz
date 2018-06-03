@@ -25,14 +25,18 @@ async function getMLBSchedule(): Promise<MLBStatsAPI.ScheduleResponse> {
   let schedule: MLBStatsAPI.ScheduleResponse;
   schedule = scheduleCache.get( 'schedule' );
   if ( schedule ) { return schedule; }
-  return await MLBStatsAPI.getCurrentSchedule();
+  schedule = await MLBStatsAPI.getCurrentSchedule();
+  scheduleCache.set( 'schedule', schedule );
+  return schedule;
 }
 
 async function getLinescore( game: MLBStatsAPI.ScheduleGame ): Promise<MLBStatsAPI.LinescoreResponse> {
   let linescore: MLBStatsAPI.LinescoreResponse;
   linescore = linescoreCache.get( game.gamePk );
   if ( linescore ) { return linescore; }
-  return await MLBStatsAPI.getLinescore( game );
+  linescore = await MLBStatsAPI.getLinescore( game );
+  linescoreCache.set( game.gamePk, linescore );
+  return linescore;
 }
 
 ( async () => {
