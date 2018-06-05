@@ -31,7 +31,7 @@ class InnerGameList extends Component<IGameListProps, {}> {
           <Game
             game={game}
             selected={this.props.selectedGamePk === game.gamePk}
-            onClick={() => { this.props.onGameSelected( game ); }}
+            onClick={this.getClickHandler( game )}
           />
           <Divider />
         </React.Fragment>,

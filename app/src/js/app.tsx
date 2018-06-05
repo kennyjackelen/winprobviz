@@ -322,7 +322,7 @@ export class App extends Component<{}, IAppState> {
       isAttachedToSelectedGame: ( newGame !== null ),
       isDrawerOpen: ( newGame === null ),
       selectedGame: newGame,
-      situation: newGame.state,
+      situation: newGame === null ? this.state.situation : newGame.state,
     } );
     await this.updateWinProbability();
   }
