@@ -277,7 +277,8 @@ export class App extends Component<{}, IAppState> {
       if ( selectedGame ) {
         newState = Object.assign( newState, { selectedGame: selectedGame } );
         if ( this.state.isAttachedToSelectedGame ) {
-          newState = Object.assign( newState, { situation: selectedGame.state } );
+          let newSituation = Object.assign( {}, selectedGame.state );
+          newState = Object.assign( newState, { situation: newSituation } );
           updatedGameState = true;
         }
       }
@@ -322,7 +323,7 @@ export class App extends Component<{}, IAppState> {
       isAttachedToSelectedGame: ( newGame !== null ),
       isDrawerOpen: ( newGame === null ),
       selectedGame: newGame,
-      situation: newGame === null ? this.state.situation : newGame.state,
+      situation: newGame === null ? this.state.situation : Object.assign( {}, newGame.state ),
     } );
     await this.updateWinProbability();
   }
@@ -330,7 +331,7 @@ export class App extends Component<{}, IAppState> {
   private async reattach() {
     await this.setState( {
       isAttachedToSelectedGame: true,
-      situation: this.state.selectedGame.state,
+      situation: Object.assign( {}, this.state.selectedGame.state ),
     } );
   }
 
