@@ -333,6 +333,7 @@ export class App extends Component<{}, IAppState> {
       isAttachedToSelectedGame: true,
       situation: Object.assign( {}, this.state.selectedGame.state ),
     } );
+    await this.updateWinProbability();
   }
 
   private async updateWinProbability() {
