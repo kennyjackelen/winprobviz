@@ -1,5 +1,5 @@
 import { MLBStatsAPI } from 'mlbstatsapi';
-import { ISimpleGameState } from '../interfaces';
+import { ISimpleGameState, IParsedGameStateKey } from '../interfaces';
 
 export class GameState {
   public inning: number;
@@ -110,14 +110,13 @@ export class GameState {
     let inning = this.inning > 8 ? 'X' : this.inning.toString();
     // use caution here - changing anything below (even the order of the
     // keys) will make existing DB entries incompatible with the application
-    return JSON.stringify(
-      {
-        bases: bases,
-        homeLead: this.homeScore - this.awayScore,
-        inning: `${halfInning}${inning}`,
-        outs: this.outs,
-      },
-    );
+    let parsedKey: IParsedGameStateKey = {
+      bases: bases,
+      homeLead: this.homeScore - this.awayScore,
+      inning: `${halfInning}${inning}`,
+      outs: this.outs,
+    };
+    return JSON.stringify( parsedKey );
   }
   public ToISimpleGameState(): ISimpleGameState {
     return {

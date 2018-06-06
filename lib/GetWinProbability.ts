@@ -1,26 +1,34 @@
 import * as pouchdb from 'pouchdb';
 import { GameState } from './GameState';
 import GetMapOfNextStates from './GetMapOfNextStates';
-import { IWinProbDocument, IWinProbResults } from '../interfaces';
+import { IWinProbDocument, IWinProbResults, IParsedGameStateKey } from '../interfaces';
 
 const db = new pouchdb( './db/winprob' );
 
 let cacheCount = 0;
 
+// this won't change between calls, so don't keep looking it up every time
+let totalGameCount: number;
+
 export default async function GetWinProbability( originalState: GameState | string, depth: number )
   : Promise<IWinProbResults> {
+  if ( totalGameCount === undefined ) {
+    totalGameCount = ( await db.get<any>( 'misc_GAME_COUNT' ) ).gameCount;
+  }
   let key: string;
   if ( typeof ( originalState ) === 'string' ) {
     key = originalState;
   } else {
     key = originalState.ToString();
   }
+  let walkOffResult = handleWalkOffWin( key );
+  if ( walkOffResult ) { return walkOffResult; }
   let cachedResult = await GetCachedResult( key, depth );
   if ( cachedResult !== undefined ) { return cachedResult; }
   // initialize object to return
   let originalStateWinProb: IWinProbResults = {
     dist: {},
-    gameCount: ( await db.get<any>( 'misc_GAME_COUNT' ) ).gameCount,
+    gameCount: totalGameCount,
     homeTeamWinCount: 0,
     situationGameCount: 0,
   };
@@ -98,4 +106,18 @@ async function StoreCachedResult( stateString: string, depth: number, result: IW
       result: result,
     },
   );
+}
+
+function handleWalkOffWin( stateString: string ): IWinProbResults {
+  let stateObj: IParsedGameStateKey = JSON.parse( stateString );
+  if ( stateObj.inning === 'BX' && stateObj.homeLead > 0 ) {
+    let dist = {};
+    dist[stateObj.homeLead] = 1;
+    return {
+      dist: dist,
+      gameCount: totalGameCount,
+      homeTeamWinCount: 1,
+      situationGameCount: 1,
+    };
+  }
 }

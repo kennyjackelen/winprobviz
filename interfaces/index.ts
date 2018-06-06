@@ -4,3 +4,4 @@ export { IGameStateServerResponse } from './IGameStateServerResponse';
 export { IWinProbResults, IWinProbDistribution } from './IWinProbResults';
 export { IWinProbDocument } from './IWinProbDocument';
 export { IMuiTheme } from './IMuiTheme';
+export { IParsedGameStateKey } from './IParsedGameStateKey';
