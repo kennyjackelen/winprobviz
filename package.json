@@ -10,7 +10,8 @@
     "build-prod": "tsc --project app && tsc --project . && webpack --config app/webpack.prod.js",
     "scrape": "node -r ts-node/register --inspect-brk=9229 scripts/scrape.ts",
     "serve-dev": "node -r ts-node/register --inspect-brk=9229 index.ts",
-    "serve": "node index.js",
+    "serve": "forever start index.js",
+    "stop": "forever stopall",
     "replicate": "node -r ts-node/register --inspect-brk=9229 scripts/replicate.ts"
   },
   "author": "Kenny Jackelen",
@@ -20,6 +21,7 @@
     "bezier-easing": "^2.0.3",
     "compression": "^1.7.2",
     "express": "^4.16.3",
+    "forever": "^0.15.3",
     "material-ui": "^0.20.0",
     "mlbstatsapi": "git+https://github.com/kennyjackelen/mlbstatsapi.git",
     "pouchdb": "^6.4.3",
