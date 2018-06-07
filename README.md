@@ -26,8 +26,8 @@ To start with an (admittedly simple) example, let's assume the following:
 - We want to compute the win probability for the situation where the bases are loaded with two outs in the bottom of the fifth inning of a tie game
 - Within our sample of games, half the time this situation occurred, the batter homered.  The other half of the time, the batter struck out.
 - We know the win probability for the two resultant states. (Don't worry about the specific numbers here.)
--- After the home run (clearing the bases and putting the home team up four), the home team's win probability is 0.9.
--- After the strikeout (ending the inning with the game tied), the home team's win probability is 0.5.
+  - After the home run (clearing the bases and putting the home team up four), the home team's win probability is 0.9.
+  - After the strikeout (ending the inning with the game tied), the home team's win probability is 0.5.
 
 From these assumptions, what can we say about the win probability of our initial situation? Using some (still pretty naïve) Bayesian inference, we can say that the home team's win probability there is 0.5 * 0.9 + 0.5 * 0.5 = 0.7.
 
