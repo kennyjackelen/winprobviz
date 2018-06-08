@@ -1,4 +1,7 @@
 # Win Probability Visualizer
+
+See it in action here: [https://kennyjackelen.com/winprob](https://kennyjackelen.com/winprob)
+
 ## Problems and Goals
 There's no shortage of win probability calculators online, but they generally just provide a single value. I wanted to build something that could provide some additional context.
 
