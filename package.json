@@ -17,7 +17,7 @@
   "author": "Kenny Jackelen",
   "license": "ISC",
   "dependencies": {
-    "ajv": "^6.4.0",
+    "ajv": "^6.12.3",
     "bezier-easing": "^2.0.3",
     "compression": "^1.7.2",
     "express": "^4.16.3",
